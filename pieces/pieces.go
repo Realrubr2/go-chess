@@ -67,7 +67,7 @@ func (b *Board) Init() {
 	}
 }
 
-// Helper function to load image (make sure to handle errors in production)
+// Helper function to load image 
 func loadImage(filePath string) *ebiten.Image {
 	img, _, err := ebitenutil.NewImageFromFile(filePath)
 	if err != nil {
@@ -77,15 +77,15 @@ func loadImage(filePath string) *ebiten.Image {
 }
 
 
-
+// draws the chess board
 func (b *Board)DrawChessBoard(screen *ebiten.Image) {
 	for y := 0; y < 8; y++ {
 		for x := 0; x < 8; x++ {
 			// Alternate colors for the chessboard pattern
 			if (x+y)%2 == 0 {
-				vector.DrawFilledRect(screen, float32(x*b.TileSize), float32(y*b.TileSize), float32(b.TileSize), float32(b.TileSize), color.RGBA{255, 255, 255, 255}, false) // White tile
+				vector.DrawFilledRect(screen, float32(x*b.TileSize), float32(y*b.TileSize), float32(b.TileSize), float32(b.TileSize), color.RGBA{255, 203, 161, 255}, false) // White tile
 			} else {
-				vector.DrawFilledRect(screen, float32(x*b.TileSize), float32(y*b.TileSize), float32(b.TileSize), float32(b.TileSize), color.RGBA{0, 0, 0, 255}, false) // Black tile
+				vector.DrawFilledRect(screen, float32(x*b.TileSize), float32(y*b.TileSize), float32(b.TileSize), float32(b.TileSize), color.RGBA{61, 29, 2, 255}, false) // Black tile
 			}
 		}
 	}
