@@ -12,8 +12,9 @@ import (
 // represents the types of pieces
 type PieceType int
 
+// iota is a keyword in Go that is used to make the others increment by 1
 const(
-	Pawn PieceType = 0
+	Pawn PieceType = iota
 	Queen
 	Rook
 	Bishop
@@ -24,7 +25,7 @@ const(
 // represents the piece
 type Piece struct {
 	Type PieceType
-	color color.Color
+	Color color.Color
 	X, Y int
 	image *ebiten.Image
 	alive bool
@@ -97,8 +98,13 @@ func (b *Board) DrawPieces(screen *ebiten.Image) {
 		for x := 0; x < 8; x++ {
 			if piece := b.Pieces[y][x]; piece != nil {
 				img := piece.image
+				//here we center the image of the piece by getting the bounds of the image and calculating the offset
+				offset := (b.TileSize - img.Bounds().Dx()) / 2
+				// Draw the piece on the board
 				op := &ebiten.DrawImageOptions{}
-				op.GeoM.Translate(float64(x*b.TileSize), float64(y*b.TileSize))
+				// Translate the image to the correct position on the board
+				op.GeoM.Translate(float64(x*b.TileSize + offset), float64(y*b.TileSize + offset))
+				// Draw the image on the screen
 				screen.DrawImage(img, op)
 			}
 		}

@@ -1,0 +1,1 @@
+go chess: a simple chess game made in go, trying to learn golang beter since the api's dont use much logic 
