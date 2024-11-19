@@ -43,8 +43,8 @@ func (b *Board) Init() {
 	b.Pieces[0][0] = &Piece{Rook, color.White, 0, 0, loadImage("assets/rook_white.png"), true}
 	b.Pieces[0][1] = &Piece{Knight, color.White, 1, 0,loadImage("assets/knight_white.png"), true}
 	b.Pieces[0][2] = &Piece{Bishop, color.White, 2, 0,loadImage("assets/Bishop_white.png"), true}
-	b.Pieces[0][3] = &Piece{Queen, color.White, 3, 0,loadImage("assets/queen_white.png"), true}
-	b.Pieces[0][4] = &Piece{King, color.White, 4, 0,loadImage("assets/king_white.png"), true}
+	b.Pieces[0][4] = &Piece{Queen, color.White, 3, 0,loadImage("assets/queen_white.png"), true}
+	b.Pieces[0][3] = &Piece{King, color.White, 4, 0,loadImage("assets/king_white.png"), true}
 	b.Pieces[0][5] = &Piece{Bishop, color.White, 5, 0,loadImage("assets/bishop_white.png"), true}
 	b.Pieces[0][6] = &Piece{Knight, color.White, 6, 0,loadImage("assets/knight_white.png"), true}
 	b.Pieces[0][7] = &Piece{Rook, color.White, 7, 0,loadImage("assets/rook_white.png"), true}
@@ -57,8 +57,8 @@ func (b *Board) Init() {
 	b.Pieces[7][0] = &Piece{Rook, color.Black, 0, 7, loadImage("assets/rook_black.png"),true }
 	b.Pieces[7][1] = &Piece{Knight, color.Black, 1, 7, loadImage("assets/knight_black.png"),true}
 	b.Pieces[7][2] = &Piece{Bishop, color.Black, 2, 7, loadImage("assets/Bishop_black.png"),true}
-	b.Pieces[7][3] = &Piece{Queen, color.Black, 3, 7, loadImage("assets/queen_black.png"),true}
-	b.Pieces[7][4] = &Piece{King, color.Black, 4, 7, loadImage("assets/king_black.png"),true }
+	b.Pieces[7][4] = &Piece{Queen, color.Black, 3, 7, loadImage("assets/queen_black.png"),true}
+	b.Pieces[7][3] = &Piece{King, color.Black, 4, 7, loadImage("assets/king_black.png"),true }
 	b.Pieces[7][5] = &Piece{Bishop, color.Black, 5, 7, loadImage("assets/bishop_black.png"),true}
 	b.Pieces[7][6] = &Piece{Knight, color.Black, 6, 7, loadImage("assets/knight_black.png"),true}
 	b.Pieces[7][7] = &Piece{Rook, color.Black, 7, 7, loadImage("assets/rook_black.png"),true }
@@ -109,4 +109,8 @@ func (b *Board) DrawPieces(screen *ebiten.Image) {
 			}
 		}
 	}
+}
+
+func (b *Board)DeletePiece(){
+	return
 }
