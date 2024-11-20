@@ -68,6 +68,15 @@ func (b *Board) Init() {
 	}
 }
 
+// Remove a piece from the board if it has been hit
+func (b *Board) RemovePieceAtPosition(x, y int) {
+    if b.Pieces[y][x] != nil {
+        b.Pieces[y][x].alive = false
+        b.Pieces[y][x] = nil
+    }
+}
+
+
 // Helper function to load image 
 func loadImage(filePath string) *ebiten.Image {
 	img, _, err := ebitenutil.NewImageFromFile(filePath)
