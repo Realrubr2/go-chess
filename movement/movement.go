@@ -1,41 +1,46 @@
 package movement
 
 import (
-	"github.com/Realrubr2/go-chess/pieces"
+	"fmt"
 	"image/color"
 	"math"
+
+	"github.com/Realrubr2/go-chess/pieces"
 )
 
 type Move struct {
-	board *Pieces.Board
-	piece *Pieces.Piece
-	fromX, fromY, toX, toY int
+	Board *Pieces.Board
+	Piece *Pieces.Piece
+	FromX, FromY, ToX, ToY int
 }
 
 func (m *Move)MovePiece()bool{
-piece := m.board.Pieces[m.fromX][m.fromY]
+piece := m.Board.Pieces[m.FromX][m.FromY]
 if piece == nil{
+	fmt.Println("no piece selected")
 	return false
 }
 
 if !m.IsMoveValid(){
+	fmt.Println("Invalid move (movepiuece)")
 	return false
 }
 
 
 
 	// Simulate the move
-	m.board.Pieces[m.toX][m.toY] = piece
-	m.board.Pieces[m.fromX][m.fromY] = nil
-	m.piece.X = m.toX
-	m.piece.Y = m.toY
+	m.Board.Pieces[m.ToX][m.ToY] = piece
+	m.Board.Pieces[m.FromX][m.FromY] = nil
+	m.Piece.X = m.ToX
+	m.Piece.Y = m.ToY
 
 	// Check if the move puts the current player's king in check
-	if m.IsKingInCheck(m.board.Pieces, m.piece.Color) {
-		m.board.Pieces[m.fromX][m.fromY] = piece
-		m.board.Pieces[m.toX][m.toY] = nil
-		m.piece.X = m.fromX
-		m.piece.Y = m.fromY
+	if m.IsKingInCheck(m.Board.Pieces, m.Piece.Color) {
+		fmt.Println("Invalid move (king in check)")
+		m.Board.Pieces[m.FromX][m.FromY] = piece
+		m.Board.Pieces[m.ToX][m.ToY] = nil
+		m.Piece.X = m.FromX
+		m.Piece.Y = m.FromY
 		return false
 	}
 
@@ -45,7 +50,7 @@ if !m.IsMoveValid(){
 
 
 func (m *Move)IsMoveValid()bool{
-	switch m.piece.Type{
+	switch m.Piece.Type{
 	case Pieces.Pawn:
 		m.ValidatePawnMove()
 	case Pieces.Rook:
@@ -66,11 +71,11 @@ func (m *Move)IsMoveValid()bool{
 // Check if moving forward by one tile
 func (m *Move)ValidatePawnMove()bool{
 		direction := 1
-		if m.piece.Color == color.Black {
+		if m.Piece.Color == color.Black {
 			direction = -1
 		}
 	
-		if m.toY == m.fromY+direction && m.toX == m.fromX && m.board.Pieces[m.toY][m.toX] == nil {
+		if m.ToY == m.FromY+direction && m.ToX == m.FromX && m.Board.Pieces[m.ToY][m.ToX] == nil {
 			return true
 		}
 		
@@ -80,17 +85,17 @@ func (m *Move)ValidatePawnMove()bool{
 
 // Check if rook is moving vertically or horizontally
 func (m *Move)ValidateRookMove()bool{
-	if m.toX == m.fromX || m.toY == m.fromY {
+	if m.ToX == m.FromX || m.ToY == m.FromY {
 		return true
 	}
 	return false
 }
 // Check if knight is moving in an L-shape
 func(m*Move)ValidateKnightMove()bool{
-	if (m.toX == m.fromX+2 || m.toX == m.fromX-2) && (m.toY == m.fromY+1 || m.toY == m.fromY-1) {
+	if (m.ToX == m.FromX+2 || m.ToX == m.FromX-2) && (m.ToY == m.FromY+1 || m.ToY == m.FromY-1) {
 		return true
 	}
-	if (m.toY == m.fromY+2 || m.toY == m.fromY-2) && (m.toX == m.fromX+1 || m.toX == m.fromX-1) {
+	if (m.ToY == m.FromY+2 || m.ToY == m.FromY-2) && (m.ToX == m.FromX+1 || m.ToX == m.FromX-1) {
 		return true
 	}
 	return false
@@ -98,11 +103,11 @@ func(m*Move)ValidateKnightMove()bool{
 
 // checks if move is diagonal by roundingg it to an absole value and comparing if the x and y both have the same value
 func (m *Move)ValidateBishopMove()bool{
-	return math.Abs(float64(m.toX-m.fromX)) == math.Abs(float64(m.toY-m.fromY))
+	return math.Abs(float64(m.ToX-m.FromX)) == math.Abs(float64(m.ToY-m.FromY))
 }
 // valiudates the king move by checking if the move is within 1 tile of the current position
 func (m *Move)ValidateKingMove()bool{
-	if math.Abs(float64(m.toX-m.fromX)) <= 1 && math.Abs(float64(m.toY-m.fromY)) <= 1 {
+	if math.Abs(float64(m.ToX-m.FromX)) <= 1 && math.Abs(float64(m.ToY-m.FromY)) <= 1 {
 		return true
 	}
 	return false

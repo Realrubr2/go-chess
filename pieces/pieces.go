@@ -27,7 +27,7 @@ type Piece struct {
 	Type PieceType
 	Color color.Color
 	X, Y int
-	image *ebiten.Image
+	Image *ebiten.Image
 	alive bool
 }
 
@@ -106,7 +106,7 @@ func (b *Board) DrawPieces(screen *ebiten.Image) {
 	for y := 0; y < 8; y++ {
 		for x := 0; x < 8; x++ {
 			if piece := b.Pieces[y][x]; piece != nil {
-				img := piece.image
+				img := piece.Image
 				//here we center the image of the piece by getting the bounds of the image and calculating the offset
 				offset := (b.TileSize - img.Bounds().Dx()) / 2
 				// Draw the piece on the board
